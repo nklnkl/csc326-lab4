@@ -4,24 +4,22 @@
 class List {
 
   public:
-
     List();
     ~List();
-    bool SortedIsEmpty () const;
-    int SortedGetLength () const;
-    bool SortedFind (int, int &) const;
-    int SortedSearch (int) const;
+    bool isEmpty () const;
+    int getLength () const;
+    bool find (int, int &) const;
+    int search (int) const;
+    void insert (int);
+    void remove (int, int &, bool &);
 
+  private:
     struct Node {
       int data;
       Node * next;
     };
-
-
-  private:
-
     Node * head;
-
+    Node * temp;
 };
 
 #endif

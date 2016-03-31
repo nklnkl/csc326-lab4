@@ -17,14 +17,14 @@ List::~List () {
   }
 }
 
-bool List::isEmpty () const {
+bool List::isEmpty () {
   // If head is not pointed at anything, return true.
   if (!head) return true;
   // If head points to a valid location, return false.
   return false;
 }
 
-int List::getLength () const {
+int List::getLength () {
   // Start the count at zero.
   int i = 0;
   // Point temp to head.
@@ -32,7 +32,7 @@ int List::getLength () const {
   // Loop while temp is valid. Will be invalid from start if List is empty, hence head was invalid, hence temp is invalid.
   while (temp) {
     // Point temp at the next node.
-    temp = head -> next;
+    temp = temp -> next;
     // Increment and loop.
     i++;
   }
@@ -40,7 +40,7 @@ int List::getLength () const {
   return i;
 }
 
-bool List::find (int k, int & x) const {
+bool List::find (int k, int & x) {
   // Start count at zero.
   int i = 0;
   // Point temp to head.
@@ -55,13 +55,14 @@ bool List::find (int k, int & x) const {
       return true;
     }
     // Otherwise increment and loop.
+    temp = temp -> next;
     i++;
   }
   // If we ever get there, we never reached the position provided, thus return false.
   return false;
 }
 
-int List::search (int key) const {
+int List::search (int key) {
   // Start the count at zero.
   int i = 0;
   // Point temp to the head.
@@ -73,6 +74,7 @@ int List::search (int key) const {
       // Return the current count.
       return i;
     // Otherwise just increment and loop.
+    temp = temp -> next;
     i++;
   }
   // If we ever get there, we never found the key, hence return -1;
@@ -80,17 +82,17 @@ int List::search (int key) const {
 }
 
 void List::insert (int x) {
-  // Point temp to head.
-  temp = head;
   // If temp is null.
-  if (!temp) {
+  if (!head) {
     // Allocate a Node at the address pointed.
-    temp = new Node;
+    head = new Node;
     // Insert the value of x at the data set by x.
-    temp -> data = x;
+    head -> data = x;
     // Return to break out of function.
     return;
   }
+  // Point temp to head.
+  temp = head;
   // Run loop while current temp is valid.
   while (temp) {
     // If the next node is null.
@@ -112,18 +114,27 @@ void List::remove (int k, int & x, bool & success) {
   temp = head;
   // Keep track of the count.
   int i = 0;
+  // Pointer for the pending deletion.
+  Node * pending;
   // While temp is valid.
   while (temp) {
-    // If the targeted count matches the current count.
-    if (i == k) {
-      // Set x equal to the current data.
-      x = temp -> data;
+    // If the targeted count matches the current count minus 1. ie: before the target.
+    if (i == k - 1 && temp -> next) {
+      // Set x equal to the next (the target data) data.
+      x = temp -> next -> data;
+      // Set the pending deletion for the target.
+      pending = temp -> next;
+      // Set next to skip the target.
+      temp -> next = temp -> next -> next;
+      // Execute deletion.
+      delete pending;
       // Set success for true.
       success = true;
       // Return.
       return;
     }
     // Otherwise increment count.
+    temp = temp -> next;
     i++;
   }
   // Set success to false, we never reached the goal k.

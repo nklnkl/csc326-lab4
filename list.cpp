@@ -1,6 +1,7 @@
 #include "list.h"
 
-List::List () {
+List::List (bool u) {
+  unique = u;
 }
 List::~List () {
   // Point temp to head.
@@ -82,6 +83,11 @@ int List::search (int key) {
 }
 
 void List::insert (int x) {
+  // If the unique flag was true and searching for x returns a valid value.
+  if (unique && search (x) != -1) {
+    // Return back to caller.
+    return;
+  }
   // If temp is null.
   if (!head) {
     // Allocate a Node at the address pointed.

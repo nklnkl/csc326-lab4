@@ -4,7 +4,32 @@ using namespace std;
 
 int main () {
   // The list object.
-  List * list = new List();
+  List * list;
+
+  int command = -1;
+  while (command != 0) {
+    cout << "0) Exit." << endl << "1) Allow duplicate elements." << endl << "2) Don't allow duplicate elements." << endl;
+    cout << "$: ";
+    cin >> command;
+    switch (command) {
+      case 0:
+        cout << "Exiting." << endl;
+        return 0;
+        break;
+      case 1:
+        list = new List(false);
+        command = 0;
+        break;
+      case 2:
+        list = new List(true);
+        command = 0;
+        break;
+      default:
+        break;
+        // do nothing.
+    }
+  }
+
   // The buffer to use for i/o.
   int x;
 

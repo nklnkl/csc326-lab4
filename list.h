@@ -7,7 +7,7 @@ using namespace std;
 class List {
 
   public:
-    List();
+    List(bool u = false);
     ~List();
     bool isEmpty ();
     int getLength ();
@@ -23,6 +23,7 @@ class List {
     };
     Node * head;
     Node * temp;
+    bool unique;
 };
 
 #endif

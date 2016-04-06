@@ -83,36 +83,53 @@ int List::search (int key) {
 }
 
 void List::insert (int x) {
+
   // If the unique flag was true and searching for x returns a valid value.
   if (unique && search (x) != -1) {
     // Return back to caller.
     return;
   }
-  // If temp is null.
-  if (!head) {
-    // Allocate a Node at the address pointed.
+
+  // If head is null or x is less than the head.
+  if (!head || x < head -> data) {
+    // Point to current head, points to null if head is null.
+    Node * next = head;
+    // Allocate a new head node.
     head = new Node;
     // Insert the value of x at the data set by x.
     head -> data = x;
+    // Point head to the next, points to null if no next.
+    head -> next = next;
     // Return to break out of function.
     return;
   }
+
   // Point temp to head.
   temp = head;
+
   // Run loop while current temp is valid.
   while (temp) {
-    // If the next node is null.
-    if (!temp -> next) {
-      // Create new node from the 'next' pointer.
+    // If the next node is greater than or equal to x.
+    if (temp -> next && temp -> next -> data >= x) {
+      // Create pointer for next.
+      Node * next = temp -> next;
+      // Allocate space for new node and assign x.
       temp -> next = new Node;
-      // Set the data of the next new node.
       temp -> next -> data = x;
-      // Return to break out of loop and end function.
+      // Point new node to next.
+      temp -> next -> next = next;
       return;
     }
-    // Otherwise go to the next node.
+    // If next node is null. Usually used if x ends up being the largest.
+    if (!temp -> next) {
+      temp -> next = new Node;
+      temp -> next -> data = x;
+      temp -> next -> next = 0;
+      return;
+    }
     temp = temp -> next;
   }
+
 }
 
 void List::remove (int k, int & x, bool & success) {

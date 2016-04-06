@@ -34,10 +34,19 @@ int main () {
   int x;
 
   list -> insert(5);
+  cout << "Inserting 5" << endl;
+  list -> insert(3);
+  cout << "Inserting 3" << endl;
   list -> insert(7);
+  cout << "Inserting 7" << endl;
   list -> insert(9);
+  cout << "Inserting 9" << endl;
   list -> insert(11);
+  cout << "Inserting 11" << endl;
+  list -> insert(10);
+  cout << "Inserting 10" << endl;
   list -> insert(5);
+  cout << "Inserting 5" << endl;
 
   cout << endl << "List" << endl;
   for ( int i = 0; i < list -> getLength (); i++) {
@@ -46,6 +55,8 @@ int main () {
   }
 
   list -> insert(7);
+  cout << "Inserting 7" << endl;
+
   cout << endl << "List" << endl;
   for ( int i = 0; i < list -> getLength (); i++) {
     if (list -> find(i, x))
